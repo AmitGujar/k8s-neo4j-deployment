@@ -3,6 +3,7 @@
 source req-check.sh
 
 install_neo4j() {
+    helm repo add neo4j https://helm.neo4j.com/neo4j
     helm repo update
     echo "Initiating the neo4j deployment..."
     sleep 4
@@ -11,7 +12,8 @@ install_neo4j() {
 }
 
 setting_ingress() {
-    # kubectl create namespace public-ingress
+    kubectl create namespace public-ingress
+    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
     echo "Installing ingress controller...."
     sleep 2
     helm upgrade --install ingress-nginx ingress-nginx \
@@ -25,6 +27,8 @@ setting_ingress() {
 install_cert_manager() {
     echo "Hope you have updated the dns record of the domain..."
     sleep 4
+    helm repo add jetstack https://charts.jetstack.io
+    helm repo update
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
     helm upgrade --install cert-manager jetstack/cert-manager --version v1.11.0
     kubectl apply -f issuer.yaml
