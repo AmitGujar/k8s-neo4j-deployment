@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard-hdd
+provisioner: disk.csi.azure.com
+parameters:
+  skuname: Standard_LRS
+  kind: Managed
+  cachingmode: ReadOnly
+allowVolumeExpansion: true
+mountOptions: []
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer

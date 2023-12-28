@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: neo4j-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - <<your domain name>>
+    secretName: tls-secret
+  rules:
+  - host: <<your domain name>>
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: my-neo4j-admin
+            port:
+              number: 7474
