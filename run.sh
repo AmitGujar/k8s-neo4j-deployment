@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source req-check.sh
+
 install_neo4j() {
     helm repo update
     echo "Initiating the neo4j deployment..."
@@ -21,14 +23,13 @@ setting_ingress() {
 }
 
 install_cert_manager() {
-
     echo "Hope you have updated the dns record of the domain..."
     sleep 4
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
     helm upgrade --install cert-manager jetstack/cert-manager --version v1.11.0
     kubectl apply -f issuer.yaml
 
-};
+}
 
 apply_ingress_tls() {
     echo "It's showtime..."
