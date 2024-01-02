@@ -7,8 +7,8 @@
 
 - We will be deploying 2 instances of neo4j on aks
 - One instance will act as admin panal, which is functional on browser only.
-- Another instance will be standard load balanacer.
-- LB instance can be configured with the backend code.
+- Another instance will be std user.
+- std user instance can be configured with the backend code.
 
 ## How to use
 
