@@ -18,6 +18,6 @@ spec:
         path: /
         backend:
           service:
-            name: my-neo4j-admin
+            name: my-neo4j-admin 
             port:
               number: 7474

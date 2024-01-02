@@ -44,10 +44,14 @@ apply_ingress_tls() {
 }
 
 config_revproxy() {
-    watch -n1 kubectl get pods
+    kubectl get svc
+    echo "make sure to update this lb ip into the dns records"
+    sleep 20
     helm upgrade --install rp neo4j/neo4j-reverse-proxy -f ingress-values.yaml
     watch -n1 kubectl get ing
     kubectl delete -f ingress.yaml
+    helm upgrade --install my-neo4j neo4j/neo4j --values ssl_config_values.yml
+    watch -n1 kubectl get pods
 }
 
 install_neo4j

@@ -1,0 +1,40 @@
+# this will apply ssl values to the neo4j-lb but make sure to update the dns records for the same
+ssl:
+# setting per "connector" matching neo4j config
+  bolt:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+  https:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+    trustedCerts:
+      sources:
+      - secret:
+          name: tls-secret
+          items:
+          - key: tls.crt
+            path: public.crt
+  cluster:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+    trustedCerts:
+      sources:
+      - secret:
+          name: tls-secret
+          items:
+          - key: tls.crt
+            path: public.crt
+    revokedCerts:
+      sources: [ ]
