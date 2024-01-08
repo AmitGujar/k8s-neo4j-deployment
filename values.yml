@@ -6,14 +6,14 @@ neo4j:
 
   password: "test1234"
 
-volumes:
-  data:
-    mode: "volume"
-    volume:
-      storageClassName: standard-hdd
-
 # volumes:
 #   data:
-#     mode: "dynamic"
-#     dynamic:
-#       storageClassName: managed-csi
+#     mode: "volume"
+#     volume:
+#       storageClassName: standard-hdd
+
+volumes:
+  data:
+    mode: "dynamic"
+    dynamic:
+      storageClassName: managed-csi

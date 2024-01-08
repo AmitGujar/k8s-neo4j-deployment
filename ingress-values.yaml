@@ -11,4 +11,4 @@ reverseProxy:
             config:
                 - secretName: tls-secret
                   hosts:
-                    - ct.akstest.tech
+                    - test.akstest.tech

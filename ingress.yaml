@@ -8,10 +8,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - <<your domain name>>
+    - test.akstest.tech
     secretName: tls-secret
   rules:
-  - host: <<your domain name>>
+  - host: test.akstest.tech
     http:
       paths:
       - pathType: Prefix

@@ -50,7 +50,7 @@ config_revproxy() {
     helm upgrade --install rp neo4j/neo4j-reverse-proxy -f ingress-values.yaml
     watch -n1 kubectl get ing
     kubectl delete -f ingress.yaml
-    helm upgrade --install my-neo4j neo4j/neo4j --values ssl_config_values.yml
+    helm upgrade my-neo4j neo4j/neo4j --values ssl_config_values.yml
     watch -n1 kubectl get pods
 }
 
