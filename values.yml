@@ -6,14 +6,84 @@ neo4j:
 
   password: "test1234"
 
-# volumes:
-#   data:
-#     mode: "volume"
-#     volume:
-#       storageClassName: standard-hdd
-
 volumes:
   data:
-    mode: "dynamic"
-    dynamic:
-      storageClassName: managed-csi
+    mode: "volume"
+    volume:
+      persistentVolumeClaim:
+        claimName: neo4j-pvc
+
+# volumes:
+#   data:
+#     mode: "dynamic"
+#     dynamic:
+#       storageClassName: managed-csi
+
+# services:
+#   neo4j:
+#     enabled: true
+#     annotations: {}
+
+#     spec:
+#       type: LoadBalancer
+#       loadBalancerIP: 4.240.32.221
+
+#     ports:
+#       http:
+#         enabled: true
+#         port: 80
+#         targetPort: 7474
+
+#       https:
+#         enabled: true 
+#         port: 443
+#         targetPort: 7473
+
+#       bolt:
+#         enabled: true
+#         port: 7687
+#         targetPort: 7687
+
+startupProbe:
+  failureThreshold: 1000
+  periodSeconds: 40
+
+# ssl:
+# # setting per "connector" matching neo4j config
+#   bolt:
+#     privateKey:
+#       secretName: tls-secret
+#       subPath: tls.key
+#     publicCertificate:
+#       secretName: tls-secret
+#       subPath: tls.crt
+#   https:
+#     privateKey:
+#       secretName: tls-secret
+#       subPath: tls.key
+#     publicCertificate:
+#       secretName: tls-secret
+#       subPath: tls.crt
+#     trustedCerts:
+#       sources:
+#       - secret:
+#           name: tls-secret
+#           items:
+#           - key: tls.crt
+#             path: public.crt
+#   cluster:
+#     privateKey:
+#       secretName: tls-secret
+#       subPath: tls.key
+#     publicCertificate:
+#       secretName: tls-secret
+#       subPath: tls.crt
+#     trustedCerts:
+#       sources:
+#       - secret:
+#           name: tls-secret
+#           items:
+#           - key: tls.crt
+#             path: public.crt
+#     revokedCerts:
+#       sources: [ ]

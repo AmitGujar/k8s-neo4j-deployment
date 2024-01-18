@@ -8,10 +8,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - test.akstest.tech
+    - neo4j.akstest.tech
     secretName: tls-secret
   rules:
-  - host: test.akstest.tech
+  - host: neo4j.akstest.tech
     http:
       paths:
       - pathType: Prefix

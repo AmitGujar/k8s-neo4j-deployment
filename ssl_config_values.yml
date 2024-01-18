@@ -1,11 +1,16 @@
 # this will apply ssl values to the neo4j-lb but make sure to update the dns records for the same
 neo4j:
   name: my-standalone
+# volumes:
+#   data:
+#     mode: "dynamic"
+#     dynamic:
+#       storageClassName: managed-csi
 volumes:
   data:
-    mode: "dynamic"
-    dynamic:
-      storageClassName: managed-csi
+    mode: "volume"
+    volume:
+      storageClassName: standard-hdd
 ssl:
 # setting per "connector" matching neo4j config
   bolt:
