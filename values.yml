@@ -1,10 +1,11 @@
 neo4j:
-  name: my-standalone
+  name: my-standalone-cdp
   resources:
     cpu: "0.5"
     memory: "4Gi"
 
   password: "test1234"
+
 
 volumes:
   data:
@@ -12,6 +13,8 @@ volumes:
     volume:
       persistentVolumeClaim:
         claimName: neo4j-pvc
+
+# helm upgrade --install my-neo4j neo4j/neo4j-standalone --values values.yml --version 4.3.2
 
 # volumes:
 #   data:
@@ -26,7 +29,7 @@ volumes:
 
 #     spec:
 #       type: LoadBalancer
-#       loadBalancerIP: 4.240.32.221
+#       # loadBalancerIP: 4.240.32.221
 
 #     ports:
 #       http:
@@ -48,42 +51,42 @@ startupProbe:
   failureThreshold: 1000
   periodSeconds: 40
 
-# ssl:
-# # setting per "connector" matching neo4j config
-#   bolt:
-#     privateKey:
-#       secretName: tls-secret
-#       subPath: tls.key
-#     publicCertificate:
-#       secretName: tls-secret
-#       subPath: tls.crt
-#   https:
-#     privateKey:
-#       secretName: tls-secret
-#       subPath: tls.key
-#     publicCertificate:
-#       secretName: tls-secret
-#       subPath: tls.crt
-#     trustedCerts:
-#       sources:
-#       - secret:
-#           name: tls-secret
-#           items:
-#           - key: tls.crt
-#             path: public.crt
-#   cluster:
-#     privateKey:
-#       secretName: tls-secret
-#       subPath: tls.key
-#     publicCertificate:
-#       secretName: tls-secret
-#       subPath: tls.crt
-#     trustedCerts:
-#       sources:
-#       - secret:
-#           name: tls-secret
-#           items:
-#           - key: tls.crt
-#             path: public.crt
-#     revokedCerts:
-#       sources: [ ]
+ssl:
+# setting per "connector" matching neo4j config
+  bolt:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+  https:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+    trustedCerts:
+      sources:
+      - secret:
+          name: tls-secret
+          items:
+          - key: tls.crt
+            path: public.crt
+  cluster:
+    privateKey:
+      secretName: tls-secret
+      subPath: tls.key
+    publicCertificate:
+      secretName: tls-secret
+      subPath: tls.crt
+    trustedCerts:
+      sources:
+      - secret:
+          name: tls-secret
+          items:
+          - key: tls.crt
+            path: public.crt
+    revokedCerts:
+      sources: [ ]

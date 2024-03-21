@@ -13,3 +13,17 @@ spec:
       - http01:
           ingress:
             class: nginx
+
+# ---
+# apiVersion: cert-manager.io/v1alpha2
+# kind: Certificate
+# metadata:
+#   name: production-certificate
+# spec:
+#   secretName: tls-secret-x
+#   issuerRef:
+#     kind: ClusterIssuer
+#     name: letsencrypt-prod
+#   commonName: "*.akstest.tech"
+#   dnsNames:
+#     - "*.akstest.tech"

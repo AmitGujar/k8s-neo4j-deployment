@@ -3,12 +3,22 @@
 source req-check.sh
 
 install_neo4j() {
+    # applying secret which contains the certificate values of graph.akstest.tech
+    kubectl apply -f graph-secret.yaml | exit 1
+    watch -n1 kubectl get secret
     helm repo add neo4j https://helm.neo4j.com/neo4j
     helm repo update
     echo "Initiating the neo4j deployment..."
-    sleep 4
     kubectl apply -f storage-class-std-hdd.yaml
-    helm upgrade --install my-neo4j neo4j/neo4j --values values.yml
+    echo "creating persistant volume claim for the neo4j...."
+    sleep 2
+    kubectl apply -f pvc.yaml
+    #helm upgrade --install my-neo4j neo4j/neo4j --values values.yml
+    helm upgrade --install my-neo4j neo4j/neo4j-standalone --values values.yml --version 4.3.2
+    watch -n1 kubectl get svc
+    echo "paste the lb ip in dns records of graph.akstest.tech"
+    # echo "re-applying the values with ssl block...."
+    # helm upgrade --install my-neo4j neo4j/neo4j --values values.yml
 }
 
 setting_ingress() {
@@ -55,7 +65,7 @@ config_revproxy() {
 }
 
 install_neo4j
-setting_ingress
-install_cert_manager
-apply_ingress_tls
+# setting_ingress
+# install_cert_manager
+#apply_ingress_tls
 #config_revproxy
