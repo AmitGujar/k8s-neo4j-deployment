@@ -4,7 +4,7 @@ source req-check.sh
 
 install_neo4j() {
     # applying secret which contains the certificate values of graph.akstest.tech
-    kubectl apply -f graph-secret.yaml | exit 1
+    kubectl apply -f neo4j-secret.yml | exit 1
     watch -n1 kubectl get secret
     helm repo add neo4j https://helm.neo4j.com/neo4j
     helm repo update
