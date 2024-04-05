@@ -1,18 +1,27 @@
 neo4j:
   name: my-standalone-cdp
   resources:
-    cpu: "0.5"
-    memory: "4Gi"
+    cpu: "2"
+    memory: "5Gi"
 
-  password: "test1234"
+  # password: "test1234"
 
+# config:
+#   server.memory.heap.initial_size: 3G
+#   server.memory.heap.max_size: 3G
+#   server.memory.pagecache.size: 1G
+
+image:
+  imagePullPolicy: IfNotPresent
+  # set a customImage if you want to use your own docker image
+  customImage: amitgujar/neofourj:beta
 
 volumes:
   data:
     mode: "volume"
     volume:
       persistentVolumeClaim:
-        claimName: neo4j-pvc
+        claimName: neo4j-pvc-one
 
 # helm upgrade --install my-neo4j neo4j/neo4j-standalone --values values.yml --version 4.3.2
 
